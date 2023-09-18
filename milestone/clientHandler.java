@@ -1,6 +1,8 @@
 package milestone;
 import java.io.*;
 import java.net.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class clientHandler implements Runnable {
     private Socket clientSocket;
@@ -26,7 +28,10 @@ public class clientHandler implements Runnable {
         try {
             String message;
             while ((message = in.readLine()) != null) {
-                System.out.println("Server received message from client " + number + ": " + message);
+                LocalDateTime current = LocalDateTime.now();
+                DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                String Timestamp = current.format(format);
+                System.out.println("[ " + Timestamp + " ] Received <C" + number + ", " + message + ">");
             }
         } catch (IOException e) {
             e.printStackTrace();
